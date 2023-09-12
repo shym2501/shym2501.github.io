@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+  <title>Kantor Hukum Pawero</title>
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <meta http-equiv="cache-control" content="max-age=800" />
+  <meta http-equiv="cache-control" content="Private" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="fontawesome/css/all.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/icons/icon-384x384.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00052b" />
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #333333;">
+    <!-- Container wrapper -->
+    <div class="container">
+      <a class="navbar-brand text-white" href="index.html">
+        <img src="img/pawero.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        <strong style="color: #ff3152;">PAWERO</strong> Group
+      </a>
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item fw-bold text-white" id="tanggal"></li>
+          <li class="nav-item fw-bold text-white ms-3" id="jam"></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5 mb-3">
+    <div class="row mb-1">
+      <div class="col-6">
+        <a href="index.html" class="btn btn-outline-secondary btn-lg"><i
+            class="fas fa-sign-out-alt fa-rotate-180 fa-lg"></i></a>
+      </div>
+    </div>
+    <div class="text-center">
+      <h1 class="card-title fw-bold">KANTOR HUKUM PAWERO</h1>
+      <h4>Edisi 2023-2024</h4>
+    </div>
+  </div>
+
+  <div class="container mb-3">
+    <div class="card border border-0 shadow">
+      <div class="card-body text-center">
+        <a href="https://docs.google.com/spreadsheets/d/17uf8tM20RDxH7YcrMG6L5WgXEFS9FunrMQS5o8KJtSM/edit#gid=0"
+          class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-address-book fa-lg me-1"></i> Buku Tamu</a>
+        <a href="https://docs.google.com/spreadsheets/d/17uf8tM20RDxH7YcrMG6L5WgXEFS9FunrMQS5o8KJtSM/edit#gid=1508088941"
+          class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-file-archive fa-lg me-1"></i> Berkas Masuk</a>
+        <a href="" class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-file-medical-alt fa-lg me-1"></i> Status Berkas</a>
+        <a href="" class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-mail-bulk fa-lg me-1"></i> Persuratan</a>
+        <a href="" class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-inbox fa-lg me-1"></i> Cek Email</a>
+        <a href="" class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-calendar-alt fa-lg me-1"></i> Kalender</a>
+        <a href="" class="btn btn-secondary btn-lg fw-bold py-3 m-1" style="background-color: #333333;"><i
+            class="fas fa-server fa-lg me-1"></i> Data</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mb-4 pb-2">
+    <div class="card border border-0 shadow">
+      <h3 class="card-title mt-3 fw-bold text-center">Catatan</h3>
+      <div class="card-body">
+        <div id="app">
+          <button class="add-note" type="button"><i class="fas fa-plus" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-light text-center text-lg-start fixed-bottom mt-5">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright: <span class="fw-bold">Powered by</span>
+      <a class="text-dark fw-bold" href="https://pawero.co.id/" target="_blank">PAWERO Inc.</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+  <script src="js/main.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="fontawesome/js/all.js" type="text/javascript"></script>
+  <script src="js/app.js" async></script>
+
+  <script>
+    const notesContainer = document.getElementById("app");
+    const addNoteButton = notesContainer.querySelector(".add-note");
+
+    getNotes().forEach((note) => {
+      const noteElement = createNoteElement(note.id, note.content);
+      notesContainer.insertBefore(noteElement, addNoteButton);
+    });
+
+    addNoteButton.addEventListener("click", () => addNote());
+
+    function getNotes() {
+      return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+    }
+
+    function saveNotes(notes) {
+      localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
+    }
+
+    function createNoteElement(id, content) {
+      const element = document.createElement("textarea");
+
+      element.classList.add("note");
+      element.value = content;
+      element.placeholder = "Empty Sticky Note";
+
+      element.addEventListener("change", () => {
+        updateNote(id, element.value);
+      });
+
+      element.addEventListener("dblclick", () => {
+        const doDelete = confirm(
+          "Are you sure you wish to delete this sticky note?"
+        );
+
+        if (doDelete) {
+          deleteNote(id, element);
+        }
+      });
+
+      return element;
+    }
+
+    function addNote() {
+      const notes = getNotes();
+      const noteObject = {
+        id: Math.floor(Math.random() * 100000),
+        content: ""
+      };
+
+      const noteElement = createNoteElement(noteObject.id, noteObject.content);
+      notesContainer.insertBefore(noteElement, addNoteButton);
+
+      notes.push(noteObject);
+      saveNotes(notes);
+    }
+
+    function updateNote(id, newContent) {
+      const notes = getNotes();
+      const targetNote = notes.filter((note) => note.id == id)[0];
+
+      targetNote.content = newContent;
+      saveNotes(notes);
+    }
+
+    function deleteNote(id, element) {
+      const notes = getNotes().filter((note) => note.id != id);
+
+      saveNotes(notes);
+      notesContainer.removeChild(element);
+    }
+  </script>
+
+</body>
+
+</html>
