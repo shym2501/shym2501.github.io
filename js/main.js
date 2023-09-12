@@ -1,22 +1,22 @@
-// Membuat objek tanggal dan waktu saat ini
-var tanggalSekarang = new Date();
+function updateDateTime() {
+  var tanggalSekarang = new Date();
+  var tanggal = tanggalSekarang.getDate();
+  var bulan = tanggalSekarang.getMonth() + 1;
+  var tahun = tanggalSekarang.getFullYear();
+  var namaHari = [
+    "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"
+  ][tanggalSekarang.getDay()];
+  var jam = tanggalSekarang.getHours();
+  var menit = tanggalSekarang.getMinutes();
+  var detik = tanggalSekarang.getSeconds();
 
-// Mendapatkan tanggal dalam format DD-MM-YYYY
-var tanggal = tanggalSekarang.getDate();
-var bulan = tanggalSekarang.getMonth() + 1; // Perhatikan bahwa bulan dimulai dari 0 (Januari adalah 0)
-var tahun = tanggalSekarang.getFullYear();
+  document.getElementById("tanggal").innerHTML =
+    namaHari + ", " + tanggal + "-" + bulan + "-" + tahun;
+  document.getElementById("jam").innerHTML = "Jam: " + jam + ":" + menit + ":" +detik;
+}
 
-// Mendapatkan hari dalam format nama hari
-var namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"][
-  tanggalSekarang.getDay()
-];
+// Memperbarui tanggal dan waktu setiap detik (1000 ms)
+setInterval(updateDateTime, 1000);
 
-// Mendapatkan jam, menit, dan detik dalam format HH:MM:SS
-var jam = tanggalSekarang.getHours();
-var menit = tanggalSekarang.getMinutes();
-
-// Menampilkan tanggal, hari, dan jam di elemen HTML
-document.getElementById("tanggal").innerHTML =
-namaHari + ", " + tanggal + "-" + bulan + "-" + tahun;
-document.getElementById("jam").innerHTML =
-  "Jam: " + jam + ":" + menit;
+// Panggil fungsi updateDateTime untuk menampilkan tanggal dan waktu awal
+updateDateTime();
