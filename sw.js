@@ -1,5 +1,5 @@
 // cache name
-const CACHE_NAME = 'pawero-v1'
+const CACHE_NAME = 'pawero-v2'
 const urlsToCache = [
   '/',
   '/index.html',
